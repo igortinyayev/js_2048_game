@@ -6,9 +6,11 @@ const game = new Game();
 const startButton = document.querySelector('button.start');
 const messageStart = document.querySelector('.message-start');
 const messageLose = document.querySelector('.message-lose');
+const messageWin = document.querySelector('.message-win');
 
 startButton.addEventListener('click', () => {
   messageLose.classList.add('hidden');
+  messageWin.classList.add('hidden');
   messageStart.classList.add('hidden');
   game.restart();
   startButton.textContent = 'Restart';
@@ -16,7 +18,7 @@ startButton.addEventListener('click', () => {
   startButton.classList.add('restart');
   renderBoard(game.getState());
   renderScore(game.getScore());
-  updateGameStatus(); // ✅ здесь исправлено
+  updateGameStatus();
 });
 
 document.addEventListener('keydown', (e) => {
@@ -28,20 +30,16 @@ document.addEventListener('keydown', (e) => {
 
   switch (e.key) {
     case 'ArrowLeft':
-      game.moveLeft();
-      moved = true;
+      moved = game.moveLeft();
       break;
     case 'ArrowRight':
-      game.moveRight();
-      moved = true;
+      moved = game.moveRight();
       break;
     case 'ArrowUp':
-      game.moveUp();
-      moved = true;
+      moved = game.moveUp();
       break;
     case 'ArrowDown':
-      game.moveDown();
-      moved = true;
+      moved = game.moveDown();
       break;
   }
 
@@ -73,6 +71,6 @@ function updateGameStatus() {
   if (gameStatus === 'lose') {
     messageLose.classList.remove('hidden');
   } else if (gameStatus === 'win') {
-    alert('Congratulations! You win!');
+    messageWin.classList.remove('hidden');
   }
 }
