@@ -11,8 +11,11 @@ const messageWin = document.querySelector('.message-win');
 startButton.addEventListener('click', () => {
   messageLose.classList.add('hidden');
   messageWin.classList.add('hidden');
-  messageStart.classList.add('hidden');
-  game.restart();
+
+  if (messageStart) {
+    messageStart.classList.add('hidden');
+  } // Handle optional message-start
+  game.start();
   startButton.textContent = 'Restart';
   startButton.classList.remove('start');
   startButton.classList.add('restart');
@@ -55,7 +58,7 @@ function renderBoard(board) {
 
   board.flat().forEach((value, index) => {
     cells[index].textContent = value || '';
-    cells[index].className = `field-cell field-cell--${value}`;
+    cells[index].className = `field-cell field-cell--${value || 0}`;
   });
 }
 
